@@ -10,7 +10,10 @@
 </style>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="data.js"></script>
 <script>
+
+console.log(nodes)
 
 var width = 960,
     height = 500,
@@ -18,12 +21,7 @@ var width = 960,
 
 var fill = d3.scale.category10();
 
-var request = new XMLHttpRequest();
-request.open("GET", "../src/data.json", false);
-request.overrideMimeType("application/json");
-request.send(null)
-var nodes = request.responseText;
-console.log(nodes);
+
 
 //var nodes = d3.range(1000).map(function(i) {
 //  return {index: i, group: (i%20)};
