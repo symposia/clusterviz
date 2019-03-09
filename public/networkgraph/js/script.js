@@ -17,8 +17,6 @@ var fill = d3.scale.category10();
 //   return {index: i, clust: (i%20)};
 // });
 
-
-
 var force = d3.layout.force()
     .nodes(nodes)
     .size([width, height])
