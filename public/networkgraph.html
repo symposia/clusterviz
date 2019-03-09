@@ -11,6 +11,7 @@
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="data.js"></script>
+<h1> HI THERE </h1>
 <script>
 
 console.log(nodes)
@@ -33,7 +34,7 @@ var force = d3.layout.force()
     .on("tick", tick)
     .start();
 
-function zoom(d) {        
+function zoom(d) {
   svg.attr("transform",
       "translate(" + d3.event.translate + ")"+ " scale(" + d3.event.scale + ")");
 }
@@ -76,15 +77,15 @@ function tick(e) {
   nodes.forEach(function(o, i) {
       o.x += Math.floor(o.group % 5) * k;
       o.y += Math.floor(o.group / 5) * k;
-      
+
       maxx = Math.max(maxx, o.x);
       maxy = Math.max(maxy, o.y);
-      
-      //o.y += 
+
+      //o.y +=
       //o.y += o.group * e.alpha * 4;
     // o.y += (group) ? k : -k;
     // o.x += (i / 4) ? k : -k;
-    
+
   });
 
    /* if (maxx > width || maxy > height) {
