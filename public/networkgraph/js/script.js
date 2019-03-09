@@ -6,8 +6,8 @@ data.forEach(function (el, index) {
     nodes.push(node)
 })
 
-var width = 960,
-    height = 500,
+var width = 1080,
+    height = 960,
     centered
 
 var fill = d3.scaleOrdinal(d3.schemeCategory10);
@@ -17,10 +17,7 @@ var fill = d3.scaleOrdinal(d3.schemeCategory10);
 //   return {index: i, clust: (i%20)};
 // });
 
-var zoom = d3.zoom()
-    .scaleExtent([1, 40])
-    .translateExtent([[-100, -100], [width + 90, height + 100]])
-    .on("zoom", zoomed);
+var zoom = d3.zoom().on("zoom", zoomed);
 
 var force = d3.forceSimulation(nodes)
     .nodes(nodes)
@@ -29,15 +26,31 @@ var force = d3.forceSimulation(nodes)
     // .tick()
     .on("tick", tick);
 
+var minx = 0;
+var maxx = 0;
+var maxy = 0;
+var miny = 0;
+
+    nodes.forEach(function (o, i) {
+        minx = Math.min(minx, o.x);
+        miny = Math.min(miny, o.y);
+        maxx = Math.max(maxx, o.x);
+        maxy = Math.max(maxy, o.y);
+    });
+
+var xcenter = (maxx - minx) / 2
+var ycenter = (maxy - miny) / 2
+
 var svg = d3.select("div#container").append("svg")
     .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 300 300")
-    .classed("svg-content img-fluid", true)
+    .attr("viewBox", 500 + " " + 0 + " "  + width + " " + height)
+    // .classed("svg-content img-fluid", true)
     .attr("width", width)
     .attr("height", height)
-    .call(d3.zoom().on("zoom", function () {
-          svg.attr("transform", d3.event.transform);
-    }))
+    .call(zoom)
+    // .call(d3.zoom().on("zoom", function () {
+    //       svg.attr("transform", d3.event.transform);
+    // }))
     .append("g");
 
 var div = d3.select("body").append("div")
@@ -94,18 +107,13 @@ div.on("mouseover", function() {
             .style('visibility', 'hidden');
     });
 
-
-// function zoomed() {
-//     svg.attr("transform", d3.event.transform);
-// }
-
 svg.style("opacity", 1e-6)
     .transition()
     .duration(1000)
     .style("opacity", 1);
 
 function tick(e) {
-    var minx = 10000, miny = 1000000;
+    var minx = 0, miny = 0;
     // Push different nodes in different directions for clustering.
     var k = this.alpha() * 20;
     nodes.forEach(function (o, i) {
@@ -126,13 +134,10 @@ function tick(e) {
 }
 
 function zoomed() {
-  d3.selectAll("circles").attr("transform", d3.event.transform);
-  // d3.event.transform.rescaleX(x);
-  // d3.event.transform.rescaleY(y);
+  // zoom.transform(svg, d3.zoomIdentity);
+  d3.selectAll(".node").attr("transform", d3.event.transform);
 }
 
 function resetted() {
-  svg.transition()
-      .duration(750)
-      .call(zoom.transform, d3.zoomIdentity);
+  this.svg.call(this.zoom.transform, d3.zoomIdentity.scale(1));
 }
