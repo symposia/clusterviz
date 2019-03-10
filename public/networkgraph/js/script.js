@@ -68,6 +68,7 @@ var svg = d3.select("div#container").append("svg")
     // .append("g");
 
     .append("svg:g")
+    .attr("class", "node-container")
     .attr("transform", "translate("+zoomWidth+","+zoomHeight+") scale("+scale+", "+scale+")")
     .call(zoom.transform, transform)
     // .call(zoom)
@@ -109,54 +110,99 @@ var node = svg
     // .call(force.drag) // This makes the node draggable
     // .on("zoom", zoomed)
   .on("mouseover", function(d) {
-    div.transition().style("opacity", 1);
-    div
-      .html(
-        "<p> Source: " +
-          d.sourceName +
-          "</p><p> Title: <a href=" +
-          d.url +
-          ">" +
-          d.title +
-          "</a></p>"
-      )
-      .style("left", d3.event.pageX + "px")
-      .style("top", d3.event.pageY - 28 + "px")
-      .style("visibility", "visible");
-        // setTimeout(function(){
+    // div.transition().style("opacity", 1);
+    // div
+    //   .html(
+    //     "<p> Source: " +
+    //       d.sourceName +
+    //       "</p><p> Title: <a href=" +
+    //       d.url +
+    //       ">" +
+    //       d.title +
+    //       "</a></p>"
+    //   )
+    //   .style("left", d3.event.pageX + "px")
+    //   .style("top", d3.event.pageY - 28 + "px")
+    //   .style("visibility", "visible");
+    //     // setTimeout(function(){
 
-        // }, 1000);
+    //     // }, 1000);
     })
   .on("mouseout", function(d) {
-    $(function() {
-      $(".node").mouseleave(function(e) {
-        if (
-          !$(e.toElement).hasClass("tooltip") &&
-          !$(e.toElement).hasClass("node")
-        ) {
-          div
-            .transition()
-                    .duration(50)
-                    .style("opacity", 0)
-                    .style("pointer-events", null)
-            .style("visibility", "hidden");
-                }
-            });
-        });
-    });
+    // $(function() {
+    //   $(".node").mouseleave(function(e) {
+    //     if (
+    //       !$(e.toElement).hasClass("tooltip") &&
+    //       !$(e.toElement).hasClass("node")
+    //     ) {
+    //       div
+    //         .transition()
+    //                 .duration(50)
+    //                 .style("opacity", 0)
+    //                 .style("pointer-events", null)
+    //         .style("visibility", "hidden");
+    //             }
+    //         });
+    //     });
+    })
+  .on("click", function(d) {
+    if (this.classList.contains("highlighted")) {
+      // Zoom Out and remove highlight
+      gNodes.transition().duration(750).attr("transform", "");
+      this.classList.remove("highlighted")
+      // Hide Tooltip
+      div.transition()
+      .duration(50)
+      .style("opacity", 0)
+      .style("pointer-events", null);
+
+      div.transition()
+      .style('visibility', 'hidden')
+    } else {
+      // zoom in and highlight node
+      selectNode(d)
+      var highlightedElements = document.getElementsByClassName("highlighted")
+      console.log(highlightedElements)
+      if (highlightedElements.length > 0) {
+        for (let el of highlightedElements) {
+          console.log(el);
+          el.classList.remove("highlighted")
+        }
+      }
+      this.classList.add("highlighted");
+      //show tooltip
+      div.transition().style("opacity", 1);
+      div
+        .html(
+          "<p> Source: " +
+            d.sourceName +
+            "</p><p> Title: <a href=" +
+            d.url +
+            ">" +
+            d.title +
+            "</a></p>"
+        )
+        .style("left", d3.event.pageX + "px")
+        .style("top", d3.event.pageY - 28 + "px")
+        .style("visibility", "visible");
+          // setTimeout(function(){
+  
+          // }, 1000); 
+    }
+  });
 
 
 div.on("mouseover", function() {
         div.style("pointer-events", null);
     })
     .on("mouseleave", function () {
-        div.transition()
-        .duration(50)
-        .style("opacity", 0)
-        .style("pointer-events", null);
+        // div.transition()
+        // .duration(50)
+        // .style("opacity", 0)
+        // .style("pointer-events", null);
 
-        div.transition()
-            .style('visibility', 'hidden');
+        // div.transition()
+        //     .style('visibility', 'hidden');
     });
 
 svg.style("opacity", 1e-6)
@@ -197,23 +243,30 @@ function zoomed() {
 
 // Click to center test
 
-var g = d3.select("g");
+var g = d3.select("g.node-container");
 console.log(g);
-var circles = d3.selectAll("g.node");
+var gNodes = d3.selectAll("g.node");
 
-function clicked(d) {
-  var scale = 1;
-  var x = scale * (-d["x"] + 286);
-  var y = scale * (-d["y"] + 147.5);
-  g.transition()
+function selectNode(d) {
+  var s = 4
+  var x = s * (-d["x"] + 523);
+  var y = s * (-d["y"] + 106);
+  gNodes.transition()
     .duration(750)
-    .attr("transform", "translate(" + x + "," + y + ") scale(" + scale + ")");
+    .attr("transform", "translate(" + x + "," + y + ") scale(" + s + ")");
 }
 
-circles.on("click", d => {
-  console.log(d);
-  clicked(d);
-});
+// gNodes.on("click", d => {
+//   selectNode(d);
+// });
+
+function highlight(d) {
+  d.attr("class", "highlighted")
+}
+
+ function removeClass(d) {
+  d.attr("class", null)
+}
 
 function domain_from_url(url) {
   var result;
