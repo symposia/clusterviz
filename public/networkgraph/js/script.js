@@ -81,37 +81,65 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-var node = svg.selectAll(".node")
+var node = svg
+  .selectAll(".node")
     .data(nodes)
-    .enter().append("circle")
+  .enter()
+  .append("svg:g")
     .attr("class", "node")
-    .attr("cx", function (d) { return d.x; })
-    .attr("cy", function (d) { return d.y; })
+  .append("svg:image")
+  .attr("xlink:href", function(d) {
+    return "http://logo.clearbit.com/" + domain_from_url(d.url);
+  })
+  .attr("height", 50)
+  .attr("width", 50)
+  .attr("x", function(d) {
+    return d.x;
+  })
+  .attr("y", function(d) {
+    return d.y;
+  })
     .attr("r", 30)
-    .style("fill", function (d) { return fill(d.clust); })
-    .style("stroke", function (d) { return d3.rgb(fill(d.clust)).darker(2); })
+  .style("fill", function(d) {
+    return fill(d.clust);
+  })
+  .style("stroke", function(d) {
+    return d3.rgb(fill(d.clust)).darker(2);
+  })
     // .call(force.drag) // This makes the node draggable
     // .on("zoom", zoomed)
-    .on("mouseover", function (d) {
-        div.transition()
-            .style("opacity", 1)
-        div.html("<p> Source: " + d.sourceName + "</p><p> Title: <a href=" + d.url + ">" + d.title + "</a></p>")
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY - 28) + "px")
-            .style('visibility', 'visible');
+  .on("mouseover", function(d) {
+    div.transition().style("opacity", 1);
+    div
+      .html(
+        "<p> Source: " +
+          d.sourceName +
+          "</p><p> Title: <a href=" +
+          d.url +
+          ">" +
+          d.title +
+          "</a></p>"
+      )
+      .style("left", d3.event.pageX + "px")
+      .style("top", d3.event.pageY - 28 + "px")
+      .style("visibility", "visible");
         // setTimeout(function(){
 
         // }, 1000);
     })
-    .on("mouseout", function (d) {
-        $( function() {
-            $('.node').mouseleave( function(e) {
-                if( ! $(e.toElement).hasClass('tooltip') &&  ! $(e.toElement).hasClass('node')) {
-                    div.transition()
+  .on("mouseout", function(d) {
+    $(function() {
+      $(".node").mouseleave(function(e) {
+        if (
+          !$(e.toElement).hasClass("tooltip") &&
+          !$(e.toElement).hasClass("node")
+        ) {
+          div
+            .transition()
                     .duration(50)
                     .style("opacity", 0)
                     .style("pointer-events", null)
-                    .style('visibility', 'hidden');
+            .style("visibility", "hidden");
                 }
             });
         });
@@ -153,8 +181,8 @@ function tick(e) {
         o.y -= (miny - 10);
     });
 
-    node.attr("cx", function (d) { return d.x; })
-        .attr("cy", function (d) { return d.y; });
+    node.attr("x", function (d) { return d.x; })
+        .attr("y", function (d) { return d.y; });
 }
 
 function zoomed() {
@@ -162,5 +190,43 @@ function zoomed() {
 }
 
 // function resetted() {
-//   this.svg.call(this.zoom.transform, d3.zoomIdentity.scale(1));
+//   svg.transition()
+//       .duration(750)
+//       .call(zoom.transform, d3.zoomIdentity);
 // }
+
+// Click to center test
+
+var g = d3.select("g");
+console.log(g);
+var circles = d3.selectAll("g.node");
+
+function clicked(d) {
+  var scale = 1;
+  var x = scale * (-d["x"] + 286);
+  var y = scale * (-d["y"] + 147.5);
+  g.transition()
+    .duration(750)
+    .attr("transform", "translate(" + x + "," + y + ") scale(" + scale + ")");
+}
+
+circles.on("click", d => {
+  console.log(d);
+  clicked(d);
+});
+
+function domain_from_url(url) {
+  var result;
+  var match;
+  if (
+    (match = url.match(
+      /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
+    ))
+  ) {
+    result = match[1];
+    if ((match = result.match(/^[^\.]+\.(.*\..*\..+)$/))) {
+      result = match[1];
+    }
+  }
+  return result;
+}
