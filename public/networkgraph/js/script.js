@@ -136,3 +136,23 @@ function resetted() {
       .duration(750)
       .call(zoom.transform, d3.zoomIdentity);
 }
+
+// Click to center test
+
+var g = d3.select("g");
+console.log(g);
+var circles = d3.selectAll("circle");
+
+function clicked(d) {
+  var scale = 1;
+  var x = scale * (-d["x"] + 286);
+  var y = scale * (-d["y"] + 147.5);
+  g.transition()
+    .duration(750)
+    .attr("transform", "translate(" + x + "," + y + ") scale(" + scale + ")");
+}
+
+circles.on("click", d => {
+  console.log(d);
+  clicked(d);
+});
