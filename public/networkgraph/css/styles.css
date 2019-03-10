@@ -113,3 +113,37 @@ html, body {
     top: 0;
     left: 0;
 }
+
+#container > svg {
+  border: solid 1px black;
+}
+
+/* temporary guidelines */
+
+#container:after {
+  content:"";
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 2px dotted #ff0000;
+  transform: translate(-50%);
+}
+
+#container::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: 0;
+  border-top: 2px dotted red;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+/*  */
+.highlighted {
+  outline: 10px solid blue;
+  outline-offset: 5px;
+}
