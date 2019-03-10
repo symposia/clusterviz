@@ -1,11 +1,11 @@
 var nodes = [];
 var highlight_trans = 0.1;
-// var margin = {top: 20, right: 120, bottom: 20, left: 120},
-//     width =  $("#container").outerWidth() - margin.right - margin.left,
-//     height = $("#container").outerHeight() - margin.top - margin.bottom;
+var margin = {top: 20, right: 240, bottom: 20, left: 120},
+    mWidth =  $("#container").outerWidth() - margin.right - margin.left,
+    mHeight = $("#container").outerHeight() - margin.top - margin.bottom;
 var width = $("#container").outerWidth();
 var height = $("#container").outerHeight();
-var scale = 0.2;
+var scale = 0.25;
 console.log(width, height);
 var nodes = [];
 var zoomWidth = (width - (scale*width))/2;
@@ -45,20 +45,6 @@ function set_focus() {
     });
 }
 
-
-
-// //	filter button event handlers
-// $(".filter-btn").on("click", function() {
-// 	var id = $(this).attr("value");
-// 	if (typeFilterList.includes(id)) {
-// 		typeFilterList.splice(typeFilterList.indexOf(id), 1)
-// 	} else {
-// 		typeFilterList.push(id);
-// 	}
-// 	filter();
-// 	update();
-// });
-
 // var zoom = d3.zoom()
 //     .scaleExtent([1, 40])
 //     .translateExtent([[-100, -100], [width + 90, height + 100]])
@@ -86,30 +72,45 @@ var force = d3.forceSimulation(nodes)
 // var xcenter = (maxx - minx) / 2
 // var ycenter = (maxy - miny) / 2
 
-var transform = d3.zoomIdentity.translate(zoomWidth, zoomHeight).scale(scale);
+var transform = d3.zoomIdentity.translate(0, 300).scale(0.25)
 
 var zoom = d3.zoom()
-    .scaleExtent([0.05, 2])
+    .scaleExtent([0.1, 5])
     .on("zoom", zoomed);
 
 var svg = d3.select("div#container").append("svg")
-    //.attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", width/2-200 + " " + 0 + " "  + width + " " + height)
-    // .classed("svg-content img-fluid", true)
-    .attr("width", width)
-    .attr("height", height)
-    .call(zoom)
+//.attr("preserveAspectRatio", "xMinYMin meet")
+//.attr("viewBox", width/2 + " " + height/2 + " "  + width + " " + height)
+.style("overflow", "scroll")
+// .classed("svg-content img-fluid", true)
+.attr("width", width)
+.attr("height", height)
 
+var gMain = svg.append('g')
+.classed('g-main', true);
+
+var rect = gMain.append('rect')
+.attr('width', width)
+.attr('height', height)
+.style('fill', 'white')
+
+var gDraw = gMain.append('g')
+//.call(zoom)
+.call(zoom.transform, transform)
+
+gMain.call(zoom);
+gMain.call(zoom.transform, transform)
+//gDraw.call(zoom.transform, d3.zoomIdentity.translate((width/2)-800, 0).scale(0.5))
 
     // .call(d3.zoom().on("zoom", function () {
     //       svg.attr("transform", d3.event.transform);
     // }))
     // .append("g");
 
-    .append("svg:g")
-    .attr("transform", "translate("+zoomWidth+","+zoomHeight+") scale("+scale+", "+scale+")")
-    .call(zoom.transform, transform)
-    // .call(zoom)
+    // .append("svg:g")
+    // .attr("transform", "translate("+zoomWidth+","+zoomHeight+") scale("+scale+", "+scale+")")
+    // .call(zoom.transform, transform)
+    // // .call(zoom)
 
 // var zoomable = svg
 //     .append("g")
@@ -120,7 +121,7 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-var node = svg
+var node = gDraw
   .selectAll(".node")
     .data(nodes)
   .enter()
@@ -146,7 +147,11 @@ var node = svg
     return d3.rgb(fill(d.clust)).darker(2);
   })
     // .call(force.drag) // This makes the node draggable
-    // .on("zoom", zoomed)
+  .on("zoom", zoomed)
+  .call(d3.drag()
+  .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended))
   .on("mouseover", function(d) {
     div.transition().style("opacity", 1);
     div
@@ -225,7 +230,9 @@ function tick(e) {
 }
 
 function zoomed() {
-  d3.selectAll(".node").attr("transform", d3.event.transform);
+    if (gDraw) {
+        gDraw.attr("transform", d3.event.transform);
+    }
 }
 
 // function resetted() {
@@ -269,3 +276,42 @@ function domain_from_url(url) {
   }
   return result;
 }
+
+function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.9).restart();
+
+      if (!d.selected && !shiftKey) {
+          // if this node isn't selected, then we have to unselect every other node
+          node.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; });
+      }
+
+      d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
+
+      node.filter(function(d) { return d.selected; })
+      .each(function(d) { //d.fixed |= 2; 
+        d.fx = d.x;
+        d.fy = d.y;
+      })
+
+  }
+
+  function dragged(d) {
+    //d.fx = d3.event.x;
+    //d.fy = d3.event.y;
+          node.filter(function(d) { return d.selected; })
+          .each(function(d) { 
+              d.fx += d3.event.dx;
+              d.fy += d3.event.dy;
+          })
+  }
+
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+      node.filter(function(d) { return d.selected; })
+      .each(function(d) { //d.fixed &= ~6; 
+          d.fx = null;
+          d.fy = null;
+      })
+  }
