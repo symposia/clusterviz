@@ -149,12 +149,12 @@ function tick(e) {
         o.y -= (miny - 10);
     });
 
-    node.attr("cx", function (d) { return d.x; })
-        .attr("cy", function (d) { return d.y; });
+    node.attr("x", function (d) { return d.x; })
+        .attr("y", function (d) { return d.y; });
 }
 
 function zoomed() {
-  d3.selectAll("circles").attr("transform", d3.event.transform);
+  d3.selectAll(".node").attr("transform", d3.event.transform);
   // d3.event.transform.rescaleX(x);
   // d3.event.transform.rescaleY(y);
 }
@@ -169,7 +169,7 @@ function resetted() {
 
 var g = d3.select("g");
 console.log(g);
-var circles = d3.selectAll("circle");
+var circles = d3.selectAll(".node");
 
 function clicked(d) {
   var scale = 1;
