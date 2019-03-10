@@ -120,7 +120,7 @@ html, body {
 
 /* temporary guidelines */
 
-#container:after {
+/* #container:after {
   content:"";
   position: absolute;
   z-index: 100;
@@ -140,7 +140,7 @@ html, body {
   width: 100%;
   transform: translateY(-50%);
   z-index: 100;
-}
+} */
 
 /*  */
 .highlighted {

@@ -75,7 +75,7 @@ var force = d3.forceSimulation(nodes)
 var transform = d3.zoomIdentity.translate(0, 300).scale(0.25)
 
 var zoom = d3.zoom()
-    .scaleExtent([0.1, 5])
+    .scaleExtent([0.05, 5])
     .on("zoom", zoomed);
 
 var svg = d3.select("div#container").append("svg")
