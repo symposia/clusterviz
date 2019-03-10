@@ -7,40 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="./css/sass.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/styles.css">
+        <!-- crossorigin="anonymous">
     <title>Hello, world!</title>
 </head>
 
 <body>
     <div class="container">
         <!-- Content here -->
+        <div class="separator"></div>
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                            <button onclick="force.stop(); resetted()">Fit</button>
-                            <div class="instructions">(Click to expand and select states to filter)</div>
-                            <div class="dropdown-container">
-                                <div class="dropdown-button noselect">
-                                    <div class="dropdown-label">States</div>
-                                    <div class="dropdown-quantity">(<span class="quantity">Any</span>)</div>
-                                    <i class="fa fa-filter"></i>
-                                </div>
-                                <div class="dropdown-list" style="display: none;">
-                                    <input type="search" placeholder="Search states" class="dropdown-search"/>
-                                    <ul></ul>
-                                    <button class='reset-btn'>Reset</button>
-                                </div>
-                            </div>
-                        <div id="container" class="svg-container">
-                        </div>
-                    </div>
+              <h1>Huawei Arrest</h1>
+              <h2 class="mb-2">Let's make China really angry!</h2>
+              <p class="card-text">New York (CNN Business)The arrest of a
+                top Huawei executive has roiled the business world and threatens
+                to derail the tenuous trade truce between the United States and China.</p>
+                  <button onclick=" resetted()">Fit</button>
+                  <div class="dropdown-container">
+                      <div class="dropdown-button noselect">
+                          <div class="dropdown-label">States</div>
+                          <div class="dropdown-quantity">(<span class="quantity">Any</span>)</div>
+                          <i class="fa fa-filter"></i>
+                      </div>
+                      <div class="dropdown-list" style="display: none;">
+                          <input type="search" placeholder="Search states" class="dropdown-search"/>
+                          <ul></ul>
+                          <button class='reset-btn'>Reset</button>
+                      </div>
+                  </div>
+                <div id="container"class="svg-container">
                 </div>
             </div>
         </div>
@@ -54,7 +52,7 @@
         crossorigin="anonymous"></script>
     <script src="http://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-    
+
     <script src="./js/script.js"></script>
     <script src="./js/filter.js"></script>
     <script src="./js/data.js"></script>
