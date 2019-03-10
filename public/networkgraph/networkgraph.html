@@ -24,7 +24,7 @@
                         <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
-                            <button onclick="force.stop(); zoomFit(0.75, 750)">Fit</button>
+                            <button onclick="force.stop(); resetted()">Fit</button>
                             <div class="instructions">(Click to expand and select states to filter)</div>
                             <div class="dropdown-container">
                                 <div class="dropdown-button noselect">
@@ -35,9 +35,9 @@
                                 <div class="dropdown-list" style="display: none;">
                                     <input type="search" placeholder="Search states" class="dropdown-search"/>
                                     <ul></ul>
+                                    <button class='filter-btn'>Filter</button>
                                 </div>
                             </div>
-
                         <div id="container" class="svg-container">
                         </div>
                     </div>
@@ -53,7 +53,7 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="./js/data.js"></script>
     <script src="./js/script.js"></script>

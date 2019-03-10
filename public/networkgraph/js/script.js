@@ -1,5 +1,5 @@
-
 var nodes = [];
+var highlight_trans = 0.1;
 
 data.forEach(function (el, index) {
     var node = el[index]
@@ -10,18 +10,56 @@ var width = 960,
     height = 500,
     centered
 
-var fill = d3.scale.category10();
+var fill = d3.scaleOrdinal(d3.schemeCategory10);
 
 
 // var nodes = d3.range(1000).map(function(i) {
 //   return {index: i, clust: (i%20)};
 // });
 
-var force = d3.layout.force()
+//	filtered types
+var typeFilterList = [];
+
+// _.observe(typeFilterList, function() {
+//     console.log("update filtered");
+// })
+
+$(".filter-btn").on("click", function() {
+    //console.log("filter!");
+    set_focus();
+})
+
+function set_focus() {
+    node.style("opacity", function(o) {
+        return typeFilterList.includes(o.sourceName) ? 1: highlight_trans;
+    });
+}
+
+
+
+// //	filter button event handlers
+// $(".filter-btn").on("click", function() {
+// 	var id = $(this).attr("value");
+// 	if (typeFilterList.includes(id)) {
+// 		typeFilterList.splice(typeFilterList.indexOf(id), 1)
+// 	} else {
+// 		typeFilterList.push(id);
+// 	}
+// 	filter();
+// 	update();
+// });
+
+var zoom = d3.zoom()
+    .scaleExtent([1, 40])
+    .translateExtent([[-100, -100], [width + 90, height + 100]])
+    .on("zoom", zoomed);
+
+var force = d3.forceSimulation(nodes)
     .nodes(nodes)
-    .size([width, height])
-    .on("tick", tick)
-    .start();
+    .force('charge', d3.forceManyBody())
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    // .tick()
+    .on("tick", tick);
 
 var svg = d3.select("div#container").append("svg")
     .attr("preserveAspectRatio", "xMinYMin meet")
@@ -29,8 +67,8 @@ var svg = d3.select("div#container").append("svg")
     .classed("svg-content img-fluid", true)
     .attr("width", width)
     .attr("height", height)
-    .call(d3.behavior.zoom().on("zoom", function () {
-        svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+    .call(d3.zoom().on("zoom", function () {
+          svg.attr("transform", d3.event.transform);
     }))
     .append("g");
 
@@ -44,10 +82,10 @@ var node = svg.selectAll(".node")
     .attr("class", "node")
     .attr("cx", function (d) { return d.x; })
     .attr("cy", function (d) { return d.y; })
-    .attr("r", 8)
+    .attr("r", 30)
     .style("fill", function (d) { return fill(d.clust); })
     .style("stroke", function (d) { return d3.rgb(fill(d.clust)).darker(2); })
-    .call(force.drag) // This makes the node draggable
+    // .call(force.drag) // This makes the node draggable
     // .on("zoom", zoomed)
     .on("mouseover", function (d) {
         div.transition()
@@ -56,7 +94,7 @@ var node = svg.selectAll(".node")
             .style("left", (d3.event.pageX) + "px")
             .style("top", (d3.event.pageY - 28) + "px")
             .style('visibility', 'visible');
-        // setTimeout(function(){ 
+        // setTimeout(function(){
 
         // }, 1000);
     })
@@ -101,19 +139,13 @@ svg.style("opacity", 1e-6)
 function tick(e) {
     var minx = 10000, miny = 1000000;
     // Push different nodes in different directions for clustering.
-    var k = 10 * e.alpha;
+    var k = this.alpha() * 20;
     nodes.forEach(function (o, i) {
         o.x += Math.floor(o.clust % 5) * k;
         o.y += Math.floor(o.clust / 5) * k;
 
         minx = Math.min(minx, o.x);
         miny = Math.min(miny, o.y);
-
-        //o.y += 
-        //o.y += o.group * e.alpha * 4;
-        // o.y += (group) ? k : -k;
-        // o.x += (i / 4) ? k : -k;
-
     });
 
     nodes.forEach(function (o, i) {
@@ -121,76 +153,18 @@ function tick(e) {
         o.y -= (miny - 10);
     });
 
-    /* if (maxx > width || maxy > height) {
-         zs = zoom.scale()
-         zt = zoom.translate();
-         dx = (w/2.0/zs) - d.x;
-         dy = (h/2.0/zs) - d.y;
-         zoom.translate([dx, dy]);
-         zoom.scale(zs);
-     }
-   */
-
     node.attr("cx", function (d) { return d.x; })
         .attr("cy", function (d) { return d.y; });
 }
 
+function zoomed() {
+  d3.selectAll("circles").attr("transform", d3.event.transform);
+  // d3.event.transform.rescaleX(x);
+  // d3.event.transform.rescaleY(y);
+}
 
-
-
-/*
-    nodes.forEach(function(o, i) {
-    o.x += (Math.random() - .5) * 40;
-    o.y += (Math.random() - .5) * 40;
-  });
-  force.resume();
-*/
-
-var root = d3.select('g')
-
-var zoomA = d3.behavior
-	.zoom()
-	.on('zoom.zoom', function () {
-		// console.trace("zoom", d3.event.translate, d3.event.scale);
-		root.attr('transform',
-			'translate(' + d3.event.translate + ')'
-			+   'scale(' + d3.event.scale     + ')');
-	})
-;
-
-function zoomFit(paddingPercent, transitionDuration) {
-    var width = 0;
-    var height = 0;
-
-    nodes.forEach(function (o, i) {
-        width = Math.max(width, o.x);
-        height = Math.max(height, o.y);
-    });
-
-    width = 1.5 * width;
-    height = height * 1.75;
-
-    console.log(width);
-    console.log(height);
-
-    var bounds = root.node().getBBox();
-    var parent = root.node().parentElement;
-    var fullWidth = parent.clientWidth,
-        fullHeight = parent.clientHeight;
-    // var width = bounds.width,
-    //     height = bounds.height;
-    var midX = (width - 100) / 2 + 100,
-        midY = height / 2;
-    if (width == 0 || height == 0) return; // nothing to fit
-    var scale = (paddingPercent || 0.75) / Math.max(width / fullWidth, height / fullHeight);
-    var translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
-
-    console.log(fullWidth);
-
-
-    // console.trace("zoomFit", translate, scale);
-    root
-        .transition()
-        .duration(transitionDuration || 0) // milliseconds
-        .call(zoomA.translate(translate).scale(scale).event);
+function resetted() {
+  svg.transition()
+      .duration(750)
+      .call(zoom.transform, d3.zoomIdentity);
 }

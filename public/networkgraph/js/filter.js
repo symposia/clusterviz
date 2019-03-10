@@ -1,3 +1,18 @@
+var newsSources = []
+var exists = [];
+var filtered = false;
+
+data.forEach(function(n, ix) {
+    var node = n[ix];
+    if (!exists.includes(node.sourceName)) {
+        exists.push(node.sourceName);
+        newsSources.push({"sourceName": node.sourceName, "url": node.url});
+    }
+})
+
+typeFilterList = exists;
+console.log(typeFilterList);
+
 // Events
 $('.dropdown-container')
 	.on('click', '.dropdown-button', function() {
@@ -20,6 +35,12 @@ $('.dropdown-container')
         });
 	})
 	.on('change', '[type="checkbox"]', function() {
+        if (!filtered) {
+            typeFilterList = []
+            filtered = true;
+        }
+        typeFilterList.push($(this).attr("name"));
+        console.log(typeFilterList);
         var container = $(this).closest('.dropdown-container');
         var numChecked = container. find('[type="checkbox"]:checked').length;
     	container.find('.quantity').text(numChecked || 'Any');
@@ -30,23 +51,12 @@ $('.dropdown-container')
 //     return {"sourceName": node.}
 // })
 
-var newsSources = []
-var exists = [];
-
-data.forEach(function(n, ix) {
-    var node = n[ix];
-    if (!exists.includes(node.sourceName)) {
-        exists.push(node.sourceName);
-        newsSources.push({"sourceName": node.sourceName, "url": node.url});
-    }
-})
-
 // var newsSources = _.keys(_.countBy(data, function(data, ix) {
 //     var node = data[ix]
 //     return node.sourceName; 
 // }));
 
-console.log(newsSources);
+// console.log(newsSources);
 
 // JSON of States for demo purposes
 var usStates = [
