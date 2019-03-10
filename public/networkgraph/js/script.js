@@ -1,23 +1,29 @@
-
+// var margin = {top: 20, right: 120, bottom: 20, left: 120},
+//     width =  $("#container").outerWidth() - margin.right - margin.left,
+//     height = $("#container").outerHeight() - margin.top - margin.bottom;
+var width = $("#container").outerWidth();
+var height = $("#container").outerHeight();
+var scale = 0.2;
+console.log(width, height);
 var nodes = [];
+var zoomWidth = (width - (scale*width))/2;
+var zoomHeight = (height - (scale*height))/2;
+console.log(zoomWidth, zoomHeight)
 
 data.forEach(function (el, index) {
     var node = el[index]
     nodes.push(node)
 })
 
-var width = 1080,
-    height = 960,
-    centered
+// var width = 1080,
+//     height = 960,
+//     centered
 
 var fill = d3.scaleOrdinal(d3.schemeCategory10);
-
 
 // var nodes = d3.range(1000).map(function(i) {
 //   return {index: i, clust: (i%20)};
 // });
-
-var zoom = d3.zoom().on("zoom", zoomed);
 
 var force = d3.forceSimulation(nodes)
     .nodes(nodes)
@@ -26,32 +32,50 @@ var force = d3.forceSimulation(nodes)
     // .tick()
     .on("tick", tick);
 
-var minx = 0;
-var maxx = 0;
-var maxy = 0;
-var miny = 0;
+// var minx = 0;
+// var maxx = 0;
+// var maxy = 0;
+// var miny = 0;
 
-    nodes.forEach(function (o, i) {
-        minx = Math.min(minx, o.x);
-        miny = Math.min(miny, o.y);
-        maxx = Math.max(maxx, o.x);
-        maxy = Math.max(maxy, o.y);
-    });
+//     nodes.forEach(function (o, i) {
+//         minx = Math.min(minx, o.x);
+//         miny = Math.min(miny, o.y);
+//         maxx = Math.max(maxx, o.x);
+//         maxy = Math.max(maxy, o.y);
+//     });
 
-var xcenter = (maxx - minx) / 2
-var ycenter = (maxy - miny) / 2
+// var xcenter = (maxx - minx) / 2
+// var ycenter = (maxy - miny) / 2
+
+var transform = d3.zoomIdentity.translate(zoomWidth, zoomHeight).scale(scale);
+
+var zoom = d3.zoom()
+    .scaleExtent([0.05, 2])
+    .on("zoom", zoomed);
 
 var svg = d3.select("div#container").append("svg")
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", 500 + " " + 0 + " "  + width + " " + height)
+    //.attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", width/2-200 + " " + 0 + " "  + width + " " + height)
     // .classed("svg-content img-fluid", true)
     .attr("width", width)
     .attr("height", height)
     .call(zoom)
+
+
     // .call(d3.zoom().on("zoom", function () {
     //       svg.attr("transform", d3.event.transform);
     // }))
-    .append("g");
+    // .append("g");
+
+    .append("svg:g")
+    .attr("transform", "translate("+zoomWidth+","+zoomHeight+") scale("+scale+", "+scale+")")
+    .call(zoom.transform, transform)
+    // .call(zoom)
+
+// var zoomable = svg
+//     .append("g")
+//     .attr("class", "zoomable")
+//     .attr("transform", transform)
 
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -134,10 +158,9 @@ function tick(e) {
 }
 
 function zoomed() {
-  // zoom.transform(svg, d3.zoomIdentity);
   d3.selectAll(".node").attr("transform", d3.event.transform);
 }
 
-function resetted() {
-  this.svg.call(this.zoom.transform, d3.zoomIdentity.scale(1));
-}
+// function resetted() {
+//   this.svg.call(this.zoom.transform, d3.zoomIdentity.scale(1));
+// }
