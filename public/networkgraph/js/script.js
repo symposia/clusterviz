@@ -1,3 +1,5 @@
+var nodes = [];
+var highlight_trans = 0.1;
 // var margin = {top: 20, right: 120, bottom: 20, left: 120},
 //     width =  $("#container").outerWidth() - margin.right - margin.left,
 //     height = $("#container").outerHeight() - margin.top - margin.bottom;
@@ -24,6 +26,43 @@ var fill = d3.scaleOrdinal(d3.schemeCategory10);
 // var nodes = d3.range(1000).map(function(i) {
 //   return {index: i, clust: (i%20)};
 // });
+
+//	filtered types
+var typeFilterList = [];
+
+// _.observe(typeFilterList, function() {
+//     console.log("update filtered");
+// })
+
+$(".filter-btn").on("click", function() {
+    //console.log("filter!");
+    set_focus();
+})
+
+function set_focus() {
+    node.style("opacity", function(o) {
+        return typeFilterList.includes(o.sourceName) ? 1: highlight_trans;
+    });
+}
+
+
+
+// //	filter button event handlers
+// $(".filter-btn").on("click", function() {
+// 	var id = $(this).attr("value");
+// 	if (typeFilterList.includes(id)) {
+// 		typeFilterList.splice(typeFilterList.indexOf(id), 1)
+// 	} else {
+// 		typeFilterList.push(id);
+// 	}
+// 	filter();
+// 	update();
+// });
+
+// var zoom = d3.zoom()
+//     .scaleExtent([1, 40])
+//     .translateExtent([[-100, -100], [width + 90, height + 100]])
+//     .on("zoom", zoomed);
 
 var force = d3.forceSimulation(nodes)
     .nodes(nodes)
