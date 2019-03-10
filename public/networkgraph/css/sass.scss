@@ -1,0 +1,69 @@
+$font-stack: 'Pontano Sans', sans-serif;
+$primary-color: #2f3640;
+$secondary-color: #273c75;
+
+.separator  {
+  height: 50px;
+}
+
+.col  {
+  text-align: center;
+  vertical-align: center;
+}
+
+#container  {
+  margin: auto;
+  margin-top: 30px;
+  height: 600px;
+  width: 1000px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  // border: 1rem solid inset;
+}
+
+h1 {
+  font-size: 40pt;
+}
+
+h1, h2 {
+  font-family: $font-stack;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+h2 {
+  color: $secondary-color;
+}
+.node {
+    stroke-width: 1.5px;
+  }
+
+  div.tooltip {
+      position: absolute;
+      text-align: center;
+      max-width: 600px;
+      max-height: 280px;
+      padding: 7px;
+      font: 12px sans-serif;
+      background: lightsteelblue;
+      border: 0px;
+      border-radius: 8px;
+  }
+
+  .svg-container {
+    // display: inline-block;
+    // position: relative;
+    // width: 100%;
+    // height: 1080px;
+    // padding-bottom: 50%;
+  //   vertical-align: top;
+  //   overflow: hidden;
+  }
+//
+// .svg-content {
+//     display: inline-block;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+// }
