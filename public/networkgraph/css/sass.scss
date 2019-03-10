@@ -11,6 +11,12 @@ $secondary-color: #273c75;
   vertical-align: center;
 }
 
+#reset-zoom  {
+  margin-top: 20px;
+  margin-left: 20px;
+  float: left;
+}
+
 #container  {
   margin: auto;
   margin-top: 30px;
@@ -40,15 +46,23 @@ h2 {
   }
 
   div.tooltip {
+      a   {
+        color: $secondary-color;
+      }
+
+      p   {
+        max-width: 200px;
+      }
+
       position: absolute;
       text-align: center;
-      max-width: 600px;
-      max-height: 280px;
+      max-width: 400px;
+      max-height: 400px;
       padding: 7px;
-      font: 12px sans-serif;
-      background: lightsteelblue;
-      border: 0px;
-      border-radius: 8px;
+      font: 12pt sans-serif;
+      background: white;
+      border: 1px solid rgba(0,0,0,.125);
+      border-radius: .25rem;
   }
 
   .svg-container {
