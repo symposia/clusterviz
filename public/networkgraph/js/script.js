@@ -30,15 +30,6 @@ var fill = d3.scaleOrdinal(d3.schemeCategory10);
 //	filtered types
 var typeFilterList = [];
 
-// _.observe(typeFilterList, function() {
-//     console.log("update filtered");
-// })
-
-$(".filter-btn").on("click", function() {
-    //console.log("filter!");
-    set_focus();
-})
-
 function set_focus() {
     node.style("opacity", function(o) {
         return typeFilterList.includes(o.sourceName) ? 1: highlight_trans;
@@ -75,7 +66,7 @@ var force = d3.forceSimulation(nodes)
 var transform = d3.zoomIdentity.translate(0, 300).scale(0.25)
 
 var zoom = d3.zoom()
-    .scaleExtent([0.05, 5])
+    .scaleExtent([0., 5])
     .on("zoom", zoomed);
 
 var svg = d3.select("div#container").append("svg")
@@ -331,14 +322,14 @@ function domain_from_url(url) {
 }
 
 function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.9).restart();
+    // if (!d3.event.active) simulation.alphaTarget(0.9).restart();
 
-      if (!d.selected && !shiftKey) {
-          // if this node isn't selected, then we have to unselect every other node
-          node.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; });
-      }
+    //   if (!d.selected && !shiftKey) {
+    //       // if this node isn't selected, then we have to unselect every other node
+    //       node.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; });
+    //   }
 
-      d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
+    //   d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
 
       node.filter(function(d) { return d.selected; })
       .each(function(d) { //d.fixed |= 2; 
@@ -359,7 +350,7 @@ function dragstarted(d) {
   }
 
   function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
+    // if (!d3.event.active) simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
       node.filter(function(d) { return d.selected; })
