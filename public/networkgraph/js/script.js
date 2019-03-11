@@ -1,3 +1,6 @@
+var nodes;
+var set_focus;
+
 function loadVisualization(rawJSON) {
 
     // var data = JSON.parse(rawJSON)
@@ -37,18 +40,18 @@ function loadVisualization(rawJSON) {
     // });
 
     //	filtered types
-    var typeFilterList = [];
+    // var typeFilterList = [];
 
     // _.observe(typeFilterList, function() {
     //     console.log("update filtered");
     // })
 
-    $(".filter-btn").on("click", function() {
-        //console.log("filter!");
-        set_focus();
-    })
+    // $(".filter-btn").on("click", function() {
+    //     //console.log("filter!");
+    //     set_focus();
+    // })
 
-    function set_focus() {
+    set_focus = function() {
         node.style("opacity", function(o) {
             return typeFilterList.includes(o.sourceName) ? 1: highlight_trans;
         });
@@ -303,12 +306,12 @@ function loadVisualization(rawJSON) {
     var gNodes = d3.selectAll("g.node");
 
     function selectNode(d) {
-    var s = 4
-    var x = s * (-d["x"] + 523);
-    var y = s * (-d["y"] + 106);
-    gNodes.transition()
-        .duration(750)
-        .attr("transform", "translate(" + x + "," + y + ") scale(" + s + ")");
+        var s = 4
+        var x = s * (-d["x"] + 523);
+        var y = s * (-d["y"] + 106);
+        gNodes.transition()
+            .duration(750)
+            .attr("transform", "translate(" + x + "," + y + ") scale(" + s + ")");
     }
 
     // gNodes.on("click", d => {
@@ -316,11 +319,11 @@ function loadVisualization(rawJSON) {
     // });
 
     function highlight(d) {
-    d.attr("class", "highlighted")
+        d.attr("class", "highlighted")
     }
 
     function removeClass(d) {
-    d.attr("class", null)
+        d.attr("class", null)
     }
 
     function domain_from_url(url) {
@@ -382,3 +385,5 @@ function loadVisualization(rawJSON) {
       gMain.transition().duration(750).call(zoom.transform, transform);
     }
 }
+
+
