@@ -4,7 +4,7 @@ var set_focus;
 function loadVisualization(rawJSON) {
 
     // var data = JSON.parse(rawJSON)
-  
+
     // console.log(rawJSON[0])
     var nodes = [];
     for(let el in rawJSON) {
@@ -225,15 +225,13 @@ function loadVisualization(rawJSON) {
             for (let el of highlightedElements) {
               console.log(el);
               el.classList.remove("highlighted")
-=======
-    // .call(zoom)
 
 // var zoomable = svg
 //     .append("g")
 //     .attr("class", "zoomable")
 //     .attr("transform", transform)
 
-var div = d3.select("body").append("div")
+var div = d3.select(".col").insert("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
@@ -284,6 +282,7 @@ var node = svg
         // }, 1000);
     })
   .on("mouseout", function(d) {
+<<<<<<< HEAD
     $(function() {
       $(".node").mouseleave(function(e) {
         if (
@@ -317,7 +316,7 @@ var node = svg
                 .style("visibility", "visible");
                 // setTimeout(function(){
 
-                // }, 1000); 
+                // }, 1000);
             }
         });
 
@@ -359,6 +358,67 @@ var node = svg
 
         node.attr("x", function (d) { return d.x; })
             .attr("y", function (d) { return d.y; });
+=======
+    // $(function() {
+    //   $(".node").mouseleave(function(e) {
+    //     if (
+    //       !$(e.toElement).hasClass("tooltip") &&
+    //       !$(e.toElement).hasClass("node")
+    //     ) {
+    //       div
+    //         .transition()
+    //                 .duration(50)
+    //                 .style("opacity", 0)
+    //                 .style("pointer-events", null)
+    //         .style("visibility", "hidden");
+    //             }
+    //         });
+    //     });
+    })
+  .on("click", function(d) {
+    if (this.classList.contains("highlighted")) {
+      // Zoom Out and remove highlight
+      gNodes.transition().duration(750).attr("transform", "");
+      this.classList.remove("highlighted")
+      // Hide Tooltip
+      div.transition()
+      .duration(50)
+      .style("opacity", 0)
+      .style("pointer-events", null);
+
+      div.transition()
+      .style('visibility', 'hidden')
+    } else {
+      // zoom in and highlight node
+      selectNode(d)
+      var highlightedElements = document.getElementsByClassName("highlighted")
+      console.log(highlightedElements)
+      if (highlightedElements.length > 0) {
+        for (let el of highlightedElements) {
+          console.log(el);
+          el.classList.remove("highlighted")
+        }
+      }
+      this.classList.add("highlighted");
+      //show tooltip
+      div.transition().style("opacity", 1);
+      div
+        .html(
+                "<h3>" +
+                  d.sourceName +
+                  "</h3><p><a href=" +
+                  d.url +
+                  ">" +
+                  d.title +
+                  "</a></p>"
+        )
+        // .style("left", d3.event.pageX - div.style("width").match(/(.*)px/)[1] / 2 + "px")
+        // .style("top", d3.event.pageY - div.style("height").match(/(.*)px/)[1] * 1.5 + "px")
+        .style("visibility", "visible");
+          // setTimeout(function(){
+
+          // }, 1000);
+>>>>>>> highlighting fixed
     }
 
     function zoomed() {
@@ -426,7 +486,7 @@ var node = svg
 //       d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
 
 //       node.filter(function(d) { return d.selected; })
-//       .each(function(d) { //d.fixed |= 2; 
+//       .each(function(d) { //d.fixed |= 2;
 //         d.fx = d.x;
 //         d.fy = d.y;
 //       })
@@ -437,7 +497,7 @@ var node = svg
 //     //d.fx = d3.event.x;
 //     //d.fy = d3.event.y;
 //           node.filter(function(d) { return d.selected; })
-//           .each(function(d) { 
+//           .each(function(d) {
 //               d.fx += d3.event.dx;
 //               d.fy += d3.event.dy;
 //           })
@@ -448,7 +508,7 @@ var node = svg
 //     d.fx = null;
 //     d.fy = null;
 //       node.filter(function(d) { return d.selected; })
-//       .each(function(d) { //d.fixed &= ~6; 
+//       .each(function(d) { //d.fixed &= ~6;
 //           d.fx = null;
 //           d.fy = null;
 //       })
@@ -458,5 +518,3 @@ var node = svg
       gMain.transition().duration(750).call(zoom.transform, transform);
     }
 }
-
-
