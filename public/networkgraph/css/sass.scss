@@ -3,6 +3,22 @@ $primary-color: #2f3640;
 $secondary-color: #273c75;
 $highlight-color: #00a8ff;
 
+
+// .dropdown-container  {
+//   width: 200px;
+//   margin-right: 0;
+// }
+// ul  {
+//   li  {
+//     width: 200px;
+//     margin: 0;
+//   }
+// }
+#content   {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
 .separator  {
   height: 50px;
 }
@@ -27,7 +43,7 @@ $highlight-color: #00a8ff;
   margin: auto;
   margin-top: 30px;
   height: 600px;
-  width: 1000px;
+  width: 1200px;
   overflow: hidden;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;

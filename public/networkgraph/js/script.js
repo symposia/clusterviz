@@ -109,7 +109,6 @@ function loadVisualization(rawJSON) {
     var gDraw = gMain.append('g')
     //.call(zoom)
     .call(zoom.transform, transform)
-<<<<<<< HEAD
 
     gMain.call(zoom);
     gMain.call(zoom.transform, transform)
@@ -225,77 +224,6 @@ function loadVisualization(rawJSON) {
             for (let el of highlightedElements) {
               console.log(el);
               el.classList.remove("highlighted")
-
-// var zoomable = svg
-//     .append("g")
-//     .attr("class", "zoomable")
-//     .attr("transform", transform)
-
-var div = d3.select(".col").insert("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
-var node = svg
-  .selectAll(".node")
-    .data(nodes)
-  .enter()
-  .append("svg:g")
-    .attr("class", "node")
-  .append("svg:image")
-  .attr("xlink:href", function(d) {
-    return "http://logo.clearbit.com/" + domain_from_url(d.url);
-  })
-  .attr("height", 75)
-  .attr("width", 75)
-  .attr("x", function(d) {
-    return d.x;
-  })
-  .attr("y", function(d) {
-    return d.y;
-  })
-    .attr("r", 30)
-  .style("fill", function(d) {
-    return fill(d.clust);
-  })
-  .style("stroke", function(d) {
-    return d3.rgb(fill(d.clust)).darker(2);
-  })
-    // .call(force.drag) // This makes the node draggable
-    // .on("zoom", zoomed)
-  .on("mouseover", function(d) {
-    div.transition().style("opacity", 1);
-    div
-      .html(
-        "<h3>" +
-          d.sourceName +
-          "</h3><p><a href=" +
-          d.url +
-          ">" +
-          d.title +
-          "</a></p>"
-      )
-      .style("left", d3.event.pageX - div.style("width").match(/(.*)px/)[1] / 2 + "px")
-      .style("top", d3.event.pageY - div.style("height").match(/(.*)px/)[1] * 1.5 + "px")
-      .style("visibility", "visible");
-        // setTimeout(function(){
-
-        // }, 1000);
-    })
-  .on("mouseout", function(d) {
-<<<<<<< HEAD
-    $(function() {
-      $(".node").mouseleave(function(e) {
-        if (
-          !$(e.toElement).hasClass("tooltip") &&
-          !$(e.toElement).hasClass("node")
-        ) {
-          div
-            .transition()
-                    .duration(50)
-                    .style("opacity", 0)
-                    .style("pointer-events", null)
-            .style("visibility", "hidden");
->>>>>>> tooltip styling added
                 }
             }
             this.classList.add("highlighted");
@@ -303,16 +231,16 @@ var node = svg
             div.transition().style("opacity", 1);
             div
                 .html(
-                "<p> Source: " +
+                "<h3>" +
                     d.sourceName +
-                    "</p><p> Title: <a href=" +
+                    "</h3><p><a href=" +
                     d.url +
                     ">" +
                     d.title +
                     "</a></p>"
                 )
-                .style("left", d3.event.pageX + "px")
-                .style("top", d3.event.pageY - 28 + "px")
+                // .style("left", d3.event.pageX + "px")
+                // .style("top", d3.event.pageY - 28 + "px")
                 .style("visibility", "visible");
                 // setTimeout(function(){
 
@@ -358,67 +286,6 @@ var node = svg
 
         node.attr("x", function (d) { return d.x; })
             .attr("y", function (d) { return d.y; });
-=======
-    // $(function() {
-    //   $(".node").mouseleave(function(e) {
-    //     if (
-    //       !$(e.toElement).hasClass("tooltip") &&
-    //       !$(e.toElement).hasClass("node")
-    //     ) {
-    //       div
-    //         .transition()
-    //                 .duration(50)
-    //                 .style("opacity", 0)
-    //                 .style("pointer-events", null)
-    //         .style("visibility", "hidden");
-    //             }
-    //         });
-    //     });
-    })
-  .on("click", function(d) {
-    if (this.classList.contains("highlighted")) {
-      // Zoom Out and remove highlight
-      gNodes.transition().duration(750).attr("transform", "");
-      this.classList.remove("highlighted")
-      // Hide Tooltip
-      div.transition()
-      .duration(50)
-      .style("opacity", 0)
-      .style("pointer-events", null);
-
-      div.transition()
-      .style('visibility', 'hidden')
-    } else {
-      // zoom in and highlight node
-      selectNode(d)
-      var highlightedElements = document.getElementsByClassName("highlighted")
-      console.log(highlightedElements)
-      if (highlightedElements.length > 0) {
-        for (let el of highlightedElements) {
-          console.log(el);
-          el.classList.remove("highlighted")
-        }
-      }
-      this.classList.add("highlighted");
-      //show tooltip
-      div.transition().style("opacity", 1);
-      div
-        .html(
-                "<h3>" +
-                  d.sourceName +
-                  "</h3><p><a href=" +
-                  d.url +
-                  ">" +
-                  d.title +
-                  "</a></p>"
-        )
-        // .style("left", d3.event.pageX - div.style("width").match(/(.*)px/)[1] / 2 + "px")
-        // .style("top", d3.event.pageY - div.style("height").match(/(.*)px/)[1] * 1.5 + "px")
-        .style("visibility", "visible");
-          // setTimeout(function(){
-
-          // }, 1000);
->>>>>>> highlighting fixed
     }
 
     function zoomed() {

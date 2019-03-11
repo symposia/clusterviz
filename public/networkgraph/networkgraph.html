@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div id="content">
         <!-- Content here -->
         <div class="separator"></div>
         <div class="row">
@@ -24,26 +24,25 @@
               <!-- <h2 class="mb-2">Let's make China really angry!</h2>
               <p class="card-text">New York (CNN Business)The arrest of a
                 top Huawei executive has roiled the business world and threatens
-
                 to derail the tenuous trade truce between the United States and China.</p> -->
 
                 <div id="container">
                   <div class="svg-container">
-                    <button id="reset-zoom" onclick=" resetted()">Reset</button>
+                    <button id="reset-zoom" onclick="force.stop(); resetZoom()">Reset Zoom</button>
                   </div>
                 </div>
             </div>
             <div class="col">
               <div class="dropdown-container">
-                  <div class="dropdown-button noselect">
-                      <div class="dropdown-label">States</div>
+                  <div class="btn btn-secondary dropdown-button noselect">
+                      <div class="dropdown-label">Sources</div>
                       <div class="dropdown-quantity">(<span class="quantity">Any</span>)</div>
                       <i class="fa fa-filter"></i>
                   </div>
                   <div class="dropdown-list" style="display: none;">
-                      <input type="search" placeholder="Search states" class="dropdown-search"/>
+                      <input type="search" placeholder="Search Sources" class="dropdown-search"/>
                       <ul></ul>
-                      <button class='filter-btn'>Filter</button>
+                      <button class='reset-btn'>Reset</button>
                   </div>
               </div>
             </div>
