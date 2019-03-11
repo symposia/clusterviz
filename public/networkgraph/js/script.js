@@ -148,11 +148,11 @@ var node = gDraw
     return d3.rgb(fill(d.clust)).darker(2);
   })
     // .call(force.drag) // This makes the node draggable
-  .on("zoom", zoomed)
-  .call(d3.drag()
-  .on("start", dragstarted)
-    .on("drag", dragged)
-    .on("end", dragended))
+  // .on("zoom", zoomed)
+  // .call(d3.drag()
+  // .on("start", dragstarted)
+  //   .on("drag", dragged)
+  //   .on("end", dragended))
   .on("mouseover", function(d) {
     // div.transition().style("opacity", 1);
     // div
@@ -190,6 +190,7 @@ var node = gDraw
     //     });
     })
   .on("click", function(d) {
+    resetZoom();
     if (this.classList.contains("highlighted")) {
       // Zoom Out and remove highlight
       gNodes.transition().duration(750).attr("transform", "");
@@ -330,41 +331,45 @@ function domain_from_url(url) {
   return result;
 }
 
-function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.9).restart();
+// function dragstarted(d) {
+//     if (!d3.event.active) simulation.alphaTarget(0.9).restart();
 
-      if (!d.selected && !shiftKey) {
-          // if this node isn't selected, then we have to unselect every other node
-          node.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; });
-      }
+//       if (!d.selected && !shiftKey) {
+//           // if this node isn't selected, then we have to unselect every other node
+//           node.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; });
+//       }
 
-      d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
+//       d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
 
-      node.filter(function(d) { return d.selected; })
-      .each(function(d) { //d.fixed |= 2; 
-        d.fx = d.x;
-        d.fy = d.y;
-      })
+//       node.filter(function(d) { return d.selected; })
+//       .each(function(d) { //d.fixed |= 2; 
+//         d.fx = d.x;
+//         d.fy = d.y;
+//       })
+//     console.log("drag started")
+//   }
 
-  }
+//   function dragged(d) {
+//     //d.fx = d3.event.x;
+//     //d.fy = d3.event.y;
+//           node.filter(function(d) { return d.selected; })
+//           .each(function(d) { 
+//               d.fx += d3.event.dx;
+//               d.fy += d3.event.dy;
+//           })
+//   }
 
-  function dragged(d) {
-    //d.fx = d3.event.x;
-    //d.fy = d3.event.y;
-          node.filter(function(d) { return d.selected; })
-          .each(function(d) { 
-              d.fx += d3.event.dx;
-              d.fy += d3.event.dy;
-          })
-  }
+//   function dragended(d) {
+//     if (!d3.event.active) simulation.alphaTarget(0);
+//     d.fx = null;
+//     d.fy = null;
+//       node.filter(function(d) { return d.selected; })
+//       .each(function(d) { //d.fixed &= ~6; 
+//           d.fx = null;
+//           d.fy = null;
+//       })
+//   }
 
-  function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-      node.filter(function(d) { return d.selected; })
-      .each(function(d) { //d.fixed &= ~6; 
-          d.fx = null;
-          d.fy = null;
-      })
-  }
+function resetZoom() {
+  gMain.transition().duration(750).call(zoom.transform, transform);
+}
