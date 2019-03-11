@@ -132,8 +132,8 @@ var node = gDraw
   .attr("xlink:href", function(d) {
     return "http://logo.clearbit.com/" + domain_from_url(d.url);
   })
-  .attr("height", 50)
-  .attr("width", 50)
+  .attr("height", 75)
+  .attr("width", 75)
   .attr("x", function(d) {
     return d.x;
   })
@@ -157,20 +157,20 @@ var node = gDraw
     // div.transition().style("opacity", 1);
     // div
     //   .html(
-    //     "<p> Source: " +
+    //     "<h3>" +
     //       d.sourceName +
-    //       "</p><p> Title: <a href=" +
+    //       "</h3><p><a href=" +
     //       d.url +
     //       ">" +
     //       d.title +
     //       "</a></p>"
     //   )
-    //   .style("left", d3.event.pageX + "px")
-    //   .style("top", d3.event.pageY - 28 + "px")
+    //   .style("left", d3.event.pageX - div.style("width").match(/(.*)px/)[1] / 2 + "px")
+    //   .style("top", d3.event.pageY - div.style("height").match(/(.*)px/)[1] * 1.5 + "px")
     //   .style("visibility", "visible");
-    //     // setTimeout(function(){
+        // setTimeout(function(){
 
-    //     // }, 1000);
+        // }, 1000);
     })
   .on("mouseout", function(d) {
     // $(function() {
@@ -230,8 +230,8 @@ var node = gDraw
         .style("top", d3.event.pageY - 28 + "px")
         .style("visibility", "visible");
           // setTimeout(function(){
-  
-          // }, 1000); 
+
+          // }, 1000);
     }
   });
 
@@ -341,7 +341,7 @@ function dragstarted(d) {
       d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
 
       node.filter(function(d) { return d.selected; })
-      .each(function(d) { //d.fixed |= 2; 
+      .each(function(d) { //d.fixed |= 2;
         d.fx = d.x;
         d.fy = d.y;
       })
@@ -352,7 +352,7 @@ function dragstarted(d) {
     //d.fx = d3.event.x;
     //d.fy = d3.event.y;
           node.filter(function(d) { return d.selected; })
-          .each(function(d) { 
+          .each(function(d) {
               d.fx += d3.event.dx;
               d.fy += d3.event.dy;
           })
@@ -363,7 +363,7 @@ function dragstarted(d) {
     d.fx = null;
     d.fy = null;
       node.filter(function(d) { return d.selected; })
-      .each(function(d) { //d.fixed &= ~6; 
+      .each(function(d) { //d.fixed &= ~6;
           d.fx = null;
           d.fy = null;
       })
