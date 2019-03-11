@@ -84,7 +84,7 @@ function loadVisualization(rawJSON) {
     // var xcenter = (maxx - minx) / 2
     // var ycenter = (maxy - miny) / 2
 
-    var transform = d3.zoomIdentity.translate(0, 300).scale(0.25)
+    var transform = d3.zoomIdentity.translate(0, 150).scale(0.25)
 
     var zoom = d3.zoom()
         .scaleExtent([0.05, 5])
@@ -381,7 +381,15 @@ function loadVisualization(rawJSON) {
 //       })
 //   }
 
-    function resetZoom() {
-      gMain.transition().duration(750).call(zoom.transform, transform);
-    }
+//reset zoom button
+function resetZoom() {
+  gMain.transition().duration(750).call(zoom.transform, transform);
+}
+
+$('#container')
+    .on('click', '#reset-zoom', function() {
+        gMain.transition().duration(750).call(zoom.transform, transform);
+    })
+
+
 }

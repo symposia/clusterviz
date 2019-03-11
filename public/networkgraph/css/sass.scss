@@ -14,6 +14,26 @@ $highlight-color: #00a8ff;
 //     margin: 0;
 //   }
 // }
+
+.dropdown-list  {
+  margin-top: 20px;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+
+  ul  {
+    list-style-type: none;
+    overflow:hidden;
+    overflow-y:scroll;
+    height:500px;
+    // width:18%;
+  }
+
+  input {
+    margin-top: 15px;
+  }
+
+}
+
 #content   {
   margin-left: 15px;
   margin-right: 15px;
@@ -33,8 +53,10 @@ $highlight-color: #00a8ff;
 }
 
 #reset-zoom  {
-  margin-top: 20px;
-  margin-left: 20px;
+  z-index: 9999;
+  position: absolute;
+  top: 10px;
+  left: 20px;
   float: left;
 }
 
@@ -54,7 +76,7 @@ h1 {
   font-size: 40pt;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: $font-stack;
   font-weight: bold;
   color: $primary-color;
@@ -62,7 +84,10 @@ h1, h2 {
 
 h2 {
   color: $secondary-color;
+  font-size: 34pt;
 }
+
+
 
 .c  {
   clear:both;
@@ -72,9 +97,16 @@ h2 {
   }
 
   div.tooltip {
-
+    padding-left: 15px;
+    padding-right: 300px;
     width: 100%;
+
+      h3 {
+        font-size: 28pt;
+      }
+
       a   {
+        font-size: 16pt;
         color: $secondary-color;
       }
 
