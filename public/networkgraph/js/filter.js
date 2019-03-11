@@ -22,12 +22,12 @@ $('.dropdown-container')
     	var target = $(this);
         var dropdownList = target.closest('.dropdown-list');
     	var search = target.val().toLowerCase();
-    
+
     	if (!search) {
             dropdownList.find('li').show();
             return false;
         }
-    
+
     	dropdownList.find('li').each(function() {
         	var text = $(this).text().toLowerCase();
             var match = text.indexOf(search) > -1;
@@ -45,7 +45,7 @@ $('.dropdown-container')
         var numChecked = container. find('[type="checkbox"]:checked').length;
     	container.find('.quantity').text(numChecked || 'Any');
     });
-    
+
 // var newsSources = data.forEach(function(n, ix) {
 //     var node = data[ix];
 //     return {"sourceName": node.}
@@ -53,7 +53,7 @@ $('.dropdown-container')
 
 // var newsSources = _.keys(_.countBy(data, function(data, ix) {
 //     var node = data[ix]
-//     return node.sourceName; 
+//     return node.sourceName;
 // }));
 
 // console.log(newsSources);

@@ -1,9 +1,14 @@
 $font-stack: 'Pontano Sans', sans-serif;
 $primary-color: #2f3640;
 $secondary-color: #273c75;
+$highlight-color: #00a8ff;
 
 .separator  {
   height: 50px;
+}
+
+.highlighted  {
+  outline: 5px solid $highlight-color;
 }
 
 .col  {
@@ -18,6 +23,7 @@ $secondary-color: #273c75;
 }
 
 #container  {
+  vertical-align: center;
   margin: auto;
   margin-top: 30px;
   height: 600px;
@@ -41,28 +47,35 @@ h1, h2 {
 h2 {
   color: $secondary-color;
 }
+
+.c  {
+  clear:both;
+}
 .node {
     stroke-width: 1.5px;
   }
 
   div.tooltip {
+
+    width: 100%;
       a   {
         color: $secondary-color;
       }
 
-      p   {
-        max-width: 200px;
-      }
+      // p   {
+      //   max-width: 200px;
+      // }
 
-      position: absolute;
+      // float: right;
+      // clear: both;
       text-align: center;
-      max-width: 400px;
-      max-height: 400px;
-      padding: 7px;
+      // width: 200px;
+      // height: 200px;
+      // padding: 7px;
       font: 12pt sans-serif;
-      background: white;
-      border: 1px solid rgba(0,0,0,.125);
-      border-radius: .25rem;
+      // background: white;
+      // border: 1px solid rgba(0,0,0,.125);
+      // border-radius: .25rem;
   }
 
   .svg-container {

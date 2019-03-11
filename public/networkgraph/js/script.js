@@ -78,7 +78,7 @@ var zoom = d3.zoom()
     .scaleExtent([0.05, 5])
     .on("zoom", zoomed);
 
-var svg = d3.select("div#container").append("svg")
+var svg = d3.select(".svg-container").append("svg")
 //.attr("preserveAspectRatio", "xMinYMin meet")
 //.attr("viewBox", width/2 + " " + height/2 + " "  + width + " " + height)
 .style("overflow", "scroll")
@@ -118,7 +118,7 @@ gMain.call(zoom.transform, transform)
 //     .attr("class", "zoomable")
 //     .attr("transform", transform)
 
-var div = d3.select("body").append("div")
+var div = d3.select(".col").insert("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
@@ -218,16 +218,16 @@ var node = gDraw
       div.transition().style("opacity", 1);
       div
         .html(
-          "<p> Source: " +
-            d.sourceName +
-            "</p><p> Title: <a href=" +
-            d.url +
-            ">" +
-            d.title +
-            "</a></p>"
+                "<h3>" +
+                  d.sourceName +
+                  "</h3><p><a href=" +
+                  d.url +
+                  ">" +
+                  d.title +
+                  "</a></p>"
         )
-        .style("left", d3.event.pageX + "px")
-        .style("top", d3.event.pageY - 28 + "px")
+        // .style("left", d3.event.pageX - div.style("width").match(/(.*)px/)[1] / 2 + "px")
+        // .style("top", d3.event.pageY - div.style("height").match(/(.*)px/)[1] * 1.5 + "px")
         .style("visibility", "visible");
           // setTimeout(function(){
 
