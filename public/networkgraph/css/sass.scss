@@ -1,5 +1,6 @@
 $font-stack: 'Pontano Sans', sans-serif;
-$primary-color: #2f3640;
+$primary-color: #192a56;
+$primary-light-color: #273c75;
 $secondary-color: #273c75;
 $highlight-color: #00a8ff;
 $button-color: #9c88ff;
@@ -91,13 +92,13 @@ $button-secondary-color: #7f8fa6;
           }
       .cbx:checked + .source-check  {
         &:before  {
-          background: $secondary-color;
+          background: #dcdde1;
         }
         .slider  {
-          background: $secondary-color;
+          background: $primary-light-color;
           transform: translateX(20px);
           transition: all .2s cubic-bezier(.8,.4,.3,1.25), background .15s ease;
-          box-shadow: 0 3px 8px rgba($secondary-color,.2);
+          box-shadow: 0 3px 8px rgba($primary-light-color,.2);
 
           &:before  {
             transform: scale(1);
