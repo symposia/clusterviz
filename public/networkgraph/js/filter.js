@@ -97,10 +97,11 @@ function filter(data) {
 
     // <li> template
     var stateTemplate = _.template(
-        '<li>' +
-            '<input name="<%= sourceName %>" type="checkbox">' +
-            '<label for="<%= sourceName %>"><%= sourceName %></label>' +
-        '</li>'
+        '<div class="list-item">' +
+            '<input class="cbx" id="<%= sourceName %>"  name="<%= sourceName %>" type="checkbox">' +
+            '<label class="source-check" for="<%= sourceName %>"><span class="slider"></span></label>' +
+            '<div class="label-text"><%= sourceName %></div>' +
+        '</div>'
     );
 
     // Populate list with states
