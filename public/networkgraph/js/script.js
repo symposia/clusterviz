@@ -84,7 +84,7 @@ function loadVisualization(rawJSON) {
     // var xcenter = (maxx - minx) / 2
     // var ycenter = (maxy - miny) / 2
 
-    var transform = d3.zoomIdentity.translate(0, 150).scale(0.25)
+    var transform = d3.zoomIdentity.translate(50, 150).scale(0.25)
 
     var zoom = d3.zoom()
         .scaleExtent([0.05, 5])
