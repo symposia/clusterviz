@@ -6,9 +6,25 @@ $highlight-color: #00a8ff;
 $button-color: #9c88ff;
 $button-secondary-color: #7f8fa6;
 
-.dropdown-container {
-  width: 250px;
+@media screen and (max-width: 1279px) {
+  #container   {
+    width: 770px;
+  }
+
+  .dropdown-container {
+    width: 220px;
+  }
 }
+
+@media screen and (min-width: 1280px) {
+  #container   {
+    width: 970px;
+  }
+  .dropdown-container {
+    width: 220px;
+  }
+}
+
 
 .dropdown-list  {
   margin-top: 20px;
@@ -202,9 +218,11 @@ $button-secondary-color: #7f8fa6;
   outline: 5px solid $highlight-color;
 }
 
-.col  {
+.column  {
   text-align: center;
   vertical-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #reset-zoom  {
@@ -217,18 +235,6 @@ $button-secondary-color: #7f8fa6;
 
 #reset-zoom:active {
   top: 11px;
-}
-
-@media screen and (max-width: 1280px) {
-  #container   {
-    width: 800px;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  #container   {
-    width: 1000px;
-  }
 }
 
 #container  {

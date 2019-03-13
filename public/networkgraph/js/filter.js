@@ -40,15 +40,16 @@ function filter(data) {
             var search = target.val().toLowerCase();
 
             if (!search) {
-                dropdownList.find('li').show();
+                dropdownList.find('.label-text').show();
                 return false;
             }
 
-            dropdownList.find('li').each(function() {
+            dropdownList.find('.list-item').each(function() {
                 var text = $(this).text().toLowerCase();
                 var match = text.indexOf(search) > -1;
                 $(this).toggle(match);
             });
+
         })
         .on('change', '[type="checkbox"]', function() {
             if (!filtered) {
