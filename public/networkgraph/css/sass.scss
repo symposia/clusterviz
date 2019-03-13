@@ -9,6 +9,7 @@ $button-secondary-color: #7f8fa6;
 @media screen and (max-width: 1279px) {
   #container   {
     width: 770px;
+    height: 400px;
   }
 
   .dropdown-container {
@@ -19,6 +20,7 @@ $button-secondary-color: #7f8fa6;
 @media screen and (min-width: 1280px) {
   #container   {
     width: 970px;
+    height: 400px;
   }
   .dropdown-container {
     width: 220px;
@@ -241,7 +243,6 @@ $button-secondary-color: #7f8fa6;
   vertical-align: center;
   margin: auto;
   margin-top: 30px;
-  height: 600px;
   overflow: hidden;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
