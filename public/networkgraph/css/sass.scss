@@ -6,6 +6,10 @@ $highlight-color: #00a8ff;
 $button-color: #9c88ff;
 $button-secondary-color: #7f8fa6;
 
+.dropdown-container {
+  width: 250px;
+}
+
 .dropdown-list  {
   margin-top: 20px;
   border: 1px solid rgba(0,0,0,.125);
@@ -215,12 +219,23 @@ $button-secondary-color: #7f8fa6;
   top: 11px;
 }
 
+@media screen and (max-width: 1280px) {
+  #container   {
+    width: 800px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  #container   {
+    width: 1000px;
+  }
+}
+
 #container  {
   vertical-align: center;
   margin: auto;
   margin-top: 30px;
   height: 600px;
-  width: 1200px;
   overflow: hidden;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
