@@ -202,7 +202,7 @@ function loadVisualization(rawJSON) {
         //     });
         })
       .on("click", function(d) {
-        resetZoom();
+        resetZoom(d);
         if (this.classList.contains("highlighted")) {
           // Zoom Out and remove highlight
           gNodes.transition().duration(750).attr("transform", "");
@@ -224,29 +224,34 @@ function loadVisualization(rawJSON) {
             for (let el of highlightedElements) {
               console.log(el);
               el.classList.remove("highlighted")
-                }
             }
-            this.classList.add("highlighted");
-            //show tooltip
-            div.transition().style("opacity", 1);
-            div
-                .html(
-                "<h3>" +
-                    d.sourceName +
-                    "</h3><p><a href=" +
-                    d.url +
-                    ">" +
-                    d.title +
-                    "</a></p>"
-                )
-                // .style("left", d3.event.pageX + "px")
-                // .style("top", d3.event.pageY - 28 + "px")
-                .style("visibility", "visible");
-                // setTimeout(function(){
+        }
+        this.classList.add("highlighted");
+        //show tooltip
+        div.transition().style("opacity", 1);
+        div
+            .html(
+                "<p>" +
+                "<img class=\"logo-img\" src=\"" + "http://logo.clearbit.com/" + domain_from_url(d.url) + "\" height=\"52\" width=\"52\">" +
+                "</p>" +
+            "<h3>" +
+                d.sourceName + 
+                
+                "</h3><p><a href=" +
+                d.url +
+                ">" +
+                d.title +
+                "</a>" +
+                "</p>"
+            )
+            // .style("left", d3.event.pageX + "px")
+            // .style("top", d3.event.pageY - 28 + "px")
+            .style("visibility", "visible");
+            // setTimeout(function(){
 
-                // }, 1000);
-            }
-        });
+            // }, 1000);
+        }
+    });
 
 
     div.on("mouseover", function() {
@@ -388,6 +393,25 @@ function resetZoom() {
 
 $('.container--fluid')
     .on('click', '#reset-zoom', function() {
+        gNodes.transition().duration(750).attr("transform", "");
+
+        var highlightedElements = document.getElementsByClassName("highlighted")
+        console.log(highlightedElements)
+        if (highlightedElements.length > 0) {
+          for (let el of highlightedElements) {
+            console.log(el);
+            el.classList.remove("highlighted")
+            }
+        }
+
+        div.transition()
+          .duration(50)
+          .style("opacity", 0)
+          .style("pointer-events", null);
+
+          div.transition()
+          .style('visibility', 'hidden')
+
         gMain.transition().duration(750).call(zoom.transform, transform);
     })
 
