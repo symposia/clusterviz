@@ -234,15 +234,17 @@ function loadVisualization(rawJSON) {
                 "<p>" +
                 "<img class=\"logo-img\" src=\"" + "http://logo.clearbit.com/" + domain_from_url(d.url) + "\" height=\"52\" width=\"52\">" +
                 "</p>" +
-            "<h3>" +
-                d.sourceName + 
-                
-                "</h3><p><a href=" +
+                "<p><a href=" +
                 d.url +
                 ">" +
                 d.title +
                 "</a>" +
-                "</p>"
+                "</p>" +
+                "<h4>" +
+                "<b>Author: </b> King James</h4>" +
+                "<h4>" +
+                "<b>Date: </b> Jan 18, 2019</h4>" +
+                "<h4>Description: blah blah blah<h4>"
             )
             // .style("left", d3.event.pageX + "px")
             // .style("top", d3.event.pageY - 28 + "px")
