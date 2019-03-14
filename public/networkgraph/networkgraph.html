@@ -9,41 +9,32 @@
     <!-- Bootstrap CSS -->
     <link href="https://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet">
     <link rel="stylesheet" href="./css/sass.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        <!-- crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        <!-- crossorigin="anonymous"> -->
     <title>Hello, world!</title>
 </head>
 
 <body>
-    <div id="content">
+    <div class="container--fluid">
         <!-- Content here -->
-        <div class="separator"></div>
-        <div class="row">
-            <div class="column">
-              <h1>Huawei Arrest</h1>
-              <!-- <h2 class="mb-2">Let's make China really angry!</h2>
-              <p class="card-text">New York (CNN Business)The arrest of a
-                top Huawei executive has roiled the business world and threatens
-                to derail the tenuous trade truce between the United States and China.</p> -->
-
-                <div class="card" id="container">
+        <h1>Huawei Arrest</h1>
+        <div class="container__row">
+            <div class="container__col-md-9 viz">
+              <!-- <div class="container__row"> -->
+                <div class="container--fluid first">
                   <div class="svg-container">
-                    <button id="reset-zoom" class="my-btn">Reset Zoom</button>
                   </div>
+                  <button id="reset-zoom" class="my-btn">Reset Zoom</button>
                 </div>
-            </div>
-            <div class="column">
-              <div class="dropdown-container">
-                  <div class="my-btn dropdown-button noselect">
-                      <div class="dropdown-label">Filter Sources</div>
-                      <!-- <div class="dropdown-quantity">(<span class="quantity">Any</span>)</div> -->
-                      <i class="fa fa-filter"></i>
-                  </div>
-                  <div class="dropdown-list" style="display: none;">
-                      <input type="search" placeholder="Search Sources" class="dropdown-search"/>
-                      <ul></ul>
-                      <button class="my-btn reset-btn" type="text" placeholder="" aria-label="reset filters" aria-describedby="basic-addon1">Reset</button>
-                  </div>
+                <div class="container--fluid second">
+                </div>
+            <!-- </div> -->
+          </div>
+            <div class="container__col-md-3">
+              <div class="dropdown-list">
+                <input type="search" placeholder="Search Sources" class="dropdown-search"/>
+                <ul></ul>
+                <button class="my-btn reset-btn" type="text" placeholder="" aria-label="reset filters" aria-describedby="basic-addon1">Reset</button>
               </div>
             </div>
         </div>

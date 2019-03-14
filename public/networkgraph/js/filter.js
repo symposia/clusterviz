@@ -23,10 +23,7 @@ function filter(data) {
     console.log(typeFilterList);
 
     // Events
-    $('.dropdown-container')
-        .on('click', '.dropdown-button', function() {
-            $(this).siblings('.dropdown-list').toggle();
-        })
+    $('.container__col-md-3')
         .on('click', '.reset-btn', function() {
             typeFilterList = exists;
             $(":checkbox").prop("checked", false);
@@ -98,7 +95,7 @@ function filter(data) {
 
     // <li> template
     var stateTemplate = _.template(
-        '<div class="list-item">' +
+        '<div class="list-item container__row">' +
             '<input class="cbx" id="<%= sourceName %>"  name="<%= sourceName %>" type="checkbox">' +
             '<label class="source-check" for="<%= sourceName %>"><span class="slider"></span></label>' +
             '<div class="label-text"><%= sourceName %></div>' +

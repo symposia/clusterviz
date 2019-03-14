@@ -16,10 +16,9 @@ function loadVisualization(rawJSON) {
     // var margin = {top: 20, right: 240, bottom: 20, left: 120},
     //     mWidth =  $("#container").outerWidth() - margin.right - margin.left,
     //     mHeight = $("#container").outerHeight() - margin.top - margin.bottom;
-    var width = $("#container").outerWidth();
-    var height = $("#container").outerHeight();
+    var width = $(".container__col-md-9").outerWidth();
+    var height = $(".container__col-md-9").outerHeight();
     var scale = 0.25;
-    console.log(width, height);
     var zoomWidth = (width - (scale*width))/2;
     var zoomHeight = (height - (scale*height))/2;
     console.log(zoomWidth, zoomHeight)
@@ -84,19 +83,20 @@ function loadVisualization(rawJSON) {
     // var xcenter = (maxx - minx) / 2
     // var ycenter = (maxy - miny) / 2
 
-    var transform = d3.zoomIdentity.translate(50, 150).scale(0.25)
+    var transform = d3.zoomIdentity.translate(25, 100).scale(0.2)
 
     var zoom = d3.zoom()
         .scaleExtent([0.05, 5])
         .on("zoom", zoomed);
 
-    var svg = d3.select("div#container").append("svg")
+    var svg = d3.select(".first").insert("svg", ".svg-container")
     //.attr("preserveAspectRatio", "xMinYMin meet")
     //.attr("viewBox", width/2 + " " + height/2 + " "  + width + " " + height)
     .style("overflow", "scroll")
     // .classed("svg-content img-fluid", true)
     .attr("width", width)
     .attr("height", height)
+    .attr("class", "container--fluid")
 
     var gMain = svg.append('g')
     .classed('g-main', true);
@@ -130,7 +130,7 @@ function loadVisualization(rawJSON) {
     //     .attr("class", "zoomable")
     //     .attr("transform", transform)
 
-    var div = d3.select("body").append("div")
+    var div = d3.select(".second").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
@@ -386,7 +386,7 @@ function resetZoom() {
   gMain.transition().duration(750).call(zoom.transform, transform);
 }
 
-$('#container')
+$('.container--fluid')
     .on('click', '#reset-zoom', function() {
         gMain.transition().duration(750).call(zoom.transform, transform);
     })
