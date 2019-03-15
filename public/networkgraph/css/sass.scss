@@ -1,15 +1,19 @@
 $font-stack: 'Pontano Sans', sans-serif;
 $primary-color: #192a56;
+$font-color: #EEE;
 $primary-light-color: #273c75;
 $secondary-color: #273c75;
 $highlight-color: #00a8ff;
 $button-color: #9c88ff;
 $button-secondary-color: #7f8fa6;
+$background-color: #151617;
 $grid__bp-md: 1900;
 $grid__cols: 2;
 
 body  {
   font-family: $font-stack;
+  background-color: $background-color;
+  color: $font-color;
 }
 
 .viz {
@@ -75,15 +79,15 @@ body  {
   height: 50vh;
   margin-left: 20px;
   margin-right: 20px;
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: .25rem;
+  // border: 1px solid rgba(0,0,0,.125);
+  // border-radius: .25rem;
 
   ul  {
     list-style-type: none;
     overflow:hidden;
     overflow-y:scroll;
     text-align: left;
-    height: 250px;
+    height: 40vh;
     width: 200px;
     .list-item  {
       margin-top: 10px;
@@ -230,13 +234,18 @@ body  {
   top:1px;
 }
 
+
+.logo-img {
+  float: right;
+}
+
 .my-btn:focus {
   outline: 0;
 }
 
 .dropdown-search  {
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: .25rem;
+  // border: 1px solid rgba(0,0,0,.125);
+  // border-radius: .25rem;
   padding: 5px;
 }
 
@@ -291,11 +300,11 @@ h1 {
 h1, h2, h3 {
   font-family: $font-stack;
   font-weight: bold;
-  color: $primary-color;
+  // color: $primary-color;
 }
 
 h2 {
-  color: $secondary-color;
+  // color: $secondary-color;
   font-size: 34pt;
 }
 
@@ -316,7 +325,7 @@ h2 {
 
       a   {
         font-size: 16pt;
-        color: $secondary-color;
+        color: $font-color;
       }
       text-align: center;
       font: 12pt sans-serif;

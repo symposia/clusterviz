@@ -240,11 +240,11 @@ function loadVisualization(rawJSON) {
                 d.title +
                 "</a>" +
                 "</p>" +
-                "<h4>" +
-                "<b>Author: </b> King James</h4>" +
-                "<h4>" +
-                "<b>Date: </b> Jan 18, 2019</h4>" +
-                "<h4>Description: blah blah blah<h4>"
+                "<p>" +
+                "<b>Author: </b> King James</p>" +
+                "<p>" +
+                "<b>Date: </b> Jan 18, 2019</p>" +
+                "<p>Description: blah blah blah</p>"
             )
             // .style("left", d3.event.pageX + "px")
             // .style("top", d3.event.pageY - 28 + "px")
